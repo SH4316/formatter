@@ -1,0 +1,27 @@
+{
+  "name": "formatter-workbench",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "node scripts/serve.mjs --port 5174",
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/serve.mjs --root dist --port 4175",
+    "vendor": "node scripts/vendor.mjs",
+    "test": "node --test tests/format.test.js",
+    "test:e2e": "playwright test"
+  },
+  "keywords": [],
+  "author": "",
+  "type": "module",
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@prettier/plugin-xml": "^3.4.2",
+    "esbuild": "^0.28.2",
+    "prettier": "^3.9.10",
+    "sql-formatter": "^15.9.0"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "packages": [
+    {
+      "name": "@prettier/plugin-xml",
+      "version": "3.4.2",
+      "license": "MIT",
+      "notices": [
+        "licenses/@prettier-plugin-xml-LICENSE"
+      ]
+    },
+    {
+      "name": "@xml-tools/parser",
+      "version": "1.0.12",
+      "license": "Apache-2.0",
+      "notices": [
+        "licenses/@xml-tools-parser-LICENSE"
+      ]
+    },
+    {
+      "name": "chevrotain",
+      "version": "7.1.1",
+      "license": "Apache-2.0",
+      "notices": [
+        "licenses/chevrotain-LICENSE.txt"
+      ]
+    },
+    {
+      "name": "nearley",
+      "version": "2.20.1",
+      "license": "MIT",
+      "notices": [
+        "licenses/nearley-LICENSE.txt"
+      ]
+    },
+    {
+      "name": "prettier",
+      "version": "3.9.10",
+      "license": "MIT",
+      "notices": [
+        "licenses/prettier-LICENSE",
+        "licenses/prettier-THIRD-PARTY-NOTICES.md"
+      ]
+    },
+    {
+      "name": "regexp-to-ast",
+      "version": "0.5.0",
+      "license": "MIT",
+      "notices": [
+        "licenses/regexp-to-ast-LICENSE"
+      ]
+    },
+    {
+      "name": "sql-formatter",
+      "version": "15.9.0",
+      "license": "MIT",
+      "notices": [
+        "licenses/sql-formatter-AUTHORS",
+        "licenses/sql-formatter-LICENSE"
+      ]
+    }
+  ]
+}

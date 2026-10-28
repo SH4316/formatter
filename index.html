@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#101827" media="(prefers-color-scheme: dark)" />
+    <meta
+      name="description"
+      content="Format JSON, XML, HTML, CSS, JavaScript, TypeScript, YAML, Markdown, SQL and more in your browser. Your input is not sent to a server."
+    />
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" src="./app.js"></script>
+    <title>Formatter — A little order. A lot clearer.</title>
+  </head>
+  <body>
+    <svg class="visually-hidden" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <symbol id="icon-code" viewBox="0 0 24 24">
+          <path d="m8 6-6 6 6 6m8-12 6 6-6 6m-3-15-2 18" />
+        </symbol>
+        <symbol id="icon-copy" viewBox="0 0 24 24">
+          <rect x="8" y="8" width="12" height="13" rx="2" />
+          <path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3" />
+        </symbol>
+        <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6" /></symbol>
+        <symbol id="icon-download" viewBox="0 0 24 24">
+          <path d="M12 3v12m-4-4 4 4 4-4M4 17v4h16v-4" />
+        </symbol>
+        <symbol id="icon-upload" viewBox="0 0 24 24">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Z" />
+          <path d="M14 2v6h6m-8 10v-7m-3 3 3-3 3 3" />
+        </symbol>
+        <symbol id="icon-lock" viewBox="0 0 24 24">
+          <rect x="4" y="11" width="16" height="10" rx="2" />
+          <path d="M8 11V7a4 4 0 0 1 8 0v4m-4 4v2" />
+        </symbol>
+        <symbol id="icon-reset" viewBox="0 0 24 24">
+          <path d="M3 10a9 9 0 1 1 2 8M3 3v7h7" />
+        </symbol>
+        <symbol id="icon-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></symbol>
+        <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" /></symbol>
+      </defs>
+    </svg>
+    <div class="site-shell">
+      <main aria-label="Code formatter">
+        <form id="settings" aria-label="Formatter settings">
+          <div class="format-toolbar">
+            <div class="setting format-setting">
+              <label for="format">Format</label
+              ><select id="format" name="format">
+                <option value="json">JSON</option>
+                <option value="xml">XML</option>
+                <option value="html">HTML</option>
+                <option value="css">CSS</option>
+                <option value="scss">SCSS</option>
+                <option value="javascript">JavaScript</option>
+                <option value="typescript">TypeScript</option>
+                <option value="yaml">YAML</option>
+                <option value="markdown">Markdown</option>
+                <option value="sql">SQL</option>
+                <option value="json5">JSON5</option>
+                <option value="graphql">GraphQL</option>
+              </select>
+            </div>
+            <div class="setting">
+              <label for="indent">Indentation</label
+              ><select id="indent" name="indent">
+                <option value="2">2 spaces</option>
+                <option value="4">4 spaces</option>
+                <option value="8">8 spaces</option>
+                <option value="tab">Tabs</option>
+              </select>
+            </div>
+            <div class="setting width-setting">
+              <label for="print-width">Line width</label
+              ><input
+                id="print-width"
+                name="printWidth"
+                type="number"
+                min="40"
+                max="240"
+                step="1"
+                value="80"
+              />
+            </div>
+            <div class="setting">
+              <label for="line-ending">Line endings</label
+              ><select id="line-ending" name="endOfLine">
+                <option value="lf">LF</option>
+                <option value="crlf">CRLF</option>
+              </select>
+            </div>
+            <label class="checkbox-label final-newline"
+              ><input type="checkbox" name="finalNewline" checked />Final newline</label
+            >
+          </div>
+          <details class="format-options" open>
+            <summary>
+              Formatting options<svg class="icon"><use href="#icon-chevron" /></svg>
+            </summary>
+            <div class="specific-options">
+              <fieldset data-formats="json">
+                <legend>JSON</legend>
+                <label class="checkbox-label"
+                  ><input type="checkbox" name="sortKeys" />Sort object keys</label
+                ><span class="setting-note"
+                  >Key sorting keeps array order and number precision.</span
+                >
+              </fieldset>
+              <fieldset data-formats="javascript typescript json5 yaml" hidden>
+                <legend>Quotes</legend>
+                <label class="checkbox-label"
+                  ><input type="checkbox" name="singleQuote" />Prefer single quotes</label
+                >
+              </fieldset>
+              <fieldset data-formats="javascript typescript json5" hidden>
+                <legend>Commas</legend>
+                <div class="inline-setting">
+                  <label for="trailing-comma">Trailing commas</label
+                  ><select id="trailing-comma" name="trailingComma">
+                    <option value="all">Where valid</option>
+                    <option value="es5">ES5 only</option>
+                    <option value="none">None</option>
+                  </select>
+                </div>
+              </fieldset>
+              <fieldset data-formats="javascript typescript" hidden>
+                <legend>JavaScript / TypeScript</legend>
+                <label class="checkbox-label"
+                  ><input type="checkbox" name="semi" checked />Semicolons</label
+                ><label class="checkbox-label"
+                  ><input type="checkbox" name="bracketSpacing" checked />Spaces inside
+                  braces</label
+                >
+              </fieldset>
+              <fieldset data-formats="xml" hidden>
+                <legend>XML whitespace</legend>
+                <div class="inline-setting">
+                  <label for="xml-whitespace">Text handling</label
+                  ><select id="xml-whitespace" name="xmlWhitespace">
+                    <option value="preserve">Preserve text</option>
+                    <option value="strict">Strict preservation</option>
+                    <option value="ignore">Reindent all</option>
+                  </select>
+                </div>
+              </fieldset>
+              <fieldset data-formats="xml" hidden>
+                <legend>XML attributes</legend>
+                <div class="inline-setting">
+                  <label for="xml-quote">Quotes</label
+                  ><select id="xml-quote" name="xmlQuote">
+                    <option value="preserve">Keep original</option>
+                    <option value="double">Double</option>
+                    <option value="single">Single</option>
+                  </select>
+                </div>
+                <label class="checkbox-label"
+                  ><input type="checkbox" name="xmlSortAttributes" />Sort attributes</label
+                ><label class="checkbox-label"
+                  ><input type="checkbox" name="xmlSelfClosingSpace" checked />Space before
+                  /&gt;</label
+                >
+              </fieldset>
+              <fieldset data-formats="xml html" hidden>
+                <legend>Attributes</legend>
+                <label class="checkbox-label"
+                  ><input type="checkbox" name="singleAttributePerLine" />One attribute per
+                  line</label
+                >
+              </fieldset>
+              <fieldset data-formats="html" hidden>
+                <legend>HTML whitespace</legend>
+                <div class="inline-setting">
+                  <label for="html-whitespace">Sensitivity</label
+                  ><select id="html-whitespace" name="htmlWhitespace">
+                    <option value="css">Follow CSS display</option>
+                    <option value="strict">Strict</option>
+                    <option value="ignore">Ignore</option>
+                  </select>
+                </div>
+              </fieldset>
+              <fieldset data-formats="html markdown" hidden>
+                <legend>Embedded code</legend>
+                <label class="checkbox-label"
+                  ><input type="checkbox" name="embedded" />Format embedded code</label
+                >
+              </fieldset>
+              <fieldset data-formats="markdown" hidden>
+                <legend>Markdown</legend>
+                <div class="inline-setting">
+                  <label for="prose-wrap">Prose wrapping</label
+                  ><select id="prose-wrap" name="proseWrap">
+                    <option value="preserve">Keep original</option>
+                    <option value="always">Wrap to line width</option>
+                    <option value="never">Never wrap</option>
+                  </select>
+                </div>
+              </fieldset>
+              <fieldset data-formats="sql" hidden>
+                <legend>SQL dialect</legend>
+                <div class="inline-setting">
+                  <label for="sql-dialect">Dialect</label
+                  ><select id="sql-dialect" name="sqlDialect">
+                    <option value="sql">Standard SQL</option>
+                    <option value="postgresql">PostgreSQL</option>
+                    <option value="mysql">MySQL</option>
+                    <option value="sqlite">SQLite</option>
+                    <option value="tsql">SQL Server</option>
+                    <option value="bigquery">BigQuery</option>
+                    <option value="snowflake">Snowflake</option>
+                    <option value="plsql">PL/SQL</option>
+                  </select>
+                </div>
+              </fieldset>
+              <fieldset data-formats="sql" hidden>
+                <legend>SQL keywords</legend>
+                <div class="inline-setting">
+                  <label for="keyword-case">Letter case</label
+                  ><select id="keyword-case" name="keywordCase">
+                    <option value="upper">UPPERCASE</option>
+                    <option value="lower">lowercase</option>
+                    <option value="preserve">Keep original</option>
+                  </select>
+                </div>
+              </fieldset>
+              <p id="format-note" class="setting-note">
+                Formatting keeps your data and its original key order. Compact removes unnecessary
+                JSON whitespace.
+              </p>
+            </div>
+          </details>
+        </form>
+        <section class="workbench" aria-label="Code formatter">
+          <div class="editor-panel" id="source-panel">
+            <div class="editor-heading">
+              <div class="editor-title">
+                <label for="source">Code</label
+                ><span id="source-format" class="format-tag">JSON</span>
+              </div>
+              <div class="editor-tools">
+                <button
+                  id="copy-source"
+                  class="icon-button"
+                  aria-label="Copy code"
+                  title="Copy code"
+                  disabled
+                >
+                  <svg class="icon"><use href="#icon-copy" /></svg>
+                </button>
+              </div>
+            </div>
+            <div class="editor-content">
+              <textarea
+                id="source"
+                spellcheck="false"
+                autocapitalize="off"
+                autocorrect="off"
+                wrap="off"
+                placeholder="Paste your code here…"
+                aria-describedby="format-note feedback"
+                maxlength="1048576"
+              ></textarea
+              ><button id="example" class="sample-button">
+                Load an example<svg class="icon"><use href="#icon-arrow" /></svg>
+              </button>
+            </div>
+            <div class="editor-footer">
+              <div class="file-actions">
+                <button id="upload" class="text-button">
+                  <svg class="icon"><use href="#icon-upload" /></svg>Upload file
+                </button>
+                <button id="download" class="text-button" disabled>
+                  <svg class="icon"><use href="#icon-download" /></svg>Download
+                </button>
+              </div>
+              <span id="source-count" class="byte-count">0 lines · 0 B</span>
+            </div>
+            <input
+              id="file-input"
+              type="file"
+              class="visually-hidden"
+              tabindex="-1"
+              aria-label="Upload source file"
+              accept=".json,.json5,.xml,.svg,.html,.htm,.css,.scss,.js,.mjs,.jsx,.ts,.tsx,.yaml,.yml,.md,.mdx,.sql,.graphql,.gql,.txt,text/*"
+            />
+          </div>
+          <div class="conversion-controls">
+            <button id="format-button" class="convert-button primary" disabled>
+              Format<svg class="icon"><use href="#icon-code" /></svg>
+            </button>
+            <button id="compact-button" class="convert-button secondary" disabled>
+              Compact JSON
+            </button>
+            <span class="shortcut"><kbd>⌘</kbd> / <kbd>Ctrl</kbd> + <kbd>↵</kbd></span>
+            <button id="clear" class="reset-button" disabled>
+              <svg class="icon"><use href="#icon-reset" /></svg>Clear all
+            </button>
+          </div>
+        </section>
+        <div class="workspace-meta">
+          <p class="input-privacy">
+            <svg class="icon"><use href="#icon-lock" /></svg>Your input is not sent to a server.
+          </p>
+          <label class="checkbox-label wrap-option"
+            ><input type="checkbox" id="wrap-lines" />Wrap long lines</label
+          >
+        </div>
+        <div id="feedback" class="feedback" role="status" aria-live="polite">
+          Pick a format, add your code, then select Format.
+        </div>
+        <section class="about-section" id="about" aria-label="About this formatter">
+          <div class="privacy-note">
+            <span class="privacy-icon"
+              ><svg class="icon"><use href="#icon-lock" /></svg
+            ></span>
+            <div>
+              <h2>Your code stays with you.</h2>
+              <p>
+                Formatting runs in your browser. No server uploads,<br class="desktop-break" />
+                no saved inputs, no external CDN requests.
+              </p>
+            </div>
+          </div>
+          <div class="format-note">
+            <h2>12 formats. One familiar workspace.</h2>
+            <p>
+              From JSON and XML to SQL and Markdown.<br class="desktop-break" />
+              Useful options, without getting in the way.
+            </p>
+          </div>
+        </section>
+        <details class="help">
+          <summary>
+            A few good things to know<svg class="icon"><use href="#icon-chevron" /></svg>
+          </summary>
+          <div>
+            <p>
+              Choose a format explicitly. File uploads select the format by extension when
+              recognized. Line width is a formatting target, rather than a hard limit: long strings,
+              URLs, and syntax rules may extend beyond it.
+            </p>
+            <p>
+              Select Format or Compact JSON to replace the code in the editor with the result.
+              If formatting fails, your code stays unchanged. Copy and Download use the current
+              editor contents. Ctrl+Enter or ⌘+Enter also formats your code.
+            </p>
+            <p>
+              JSON sorting preserves large number literals, duplicate keys, and array order. XML
+              defaults to preserving text whitespace; Reindent all can change whitespace in mixed
+              content. SQL formatting does not validate query correctness. Inputs are limited to 1
+              MiB.
+            </p>
+          </div>
+        </details>
+      </main>
+      <footer class="site-footer">
+        <span>Less friction. More getting things done.</span
+        ><span>Made for the in-between tasks. <a href="./THIRD-PARTY-NOTICES.txt">Licenses</a></span>
+      </footer>
+    </div>
+  </body>
+</html>

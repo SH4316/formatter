@@ -1,0 +1,53 @@
+Third-party software and font notices
+
+This file describes third-party material shipped with Formatter Workbench.
+It does not assign a license to this application's own source code.
+
+IBM Plex Sans
+Original distribution: @fontsource-variable/ibm-plex-sans 5.3.0, Latin variable font
+License: SIL Open Font License 1.1
+Copyright and full license: assets/licenses/IBMPlexSans-OFL.txt
+Font SHA-256: e2291e842cf5af167122a22881a740c7f2dda7716f1e8cd76680264f4a859470
+Copied unmodified from the same package used by the blog.
+This static font asset has no runtime or transitive dependencies.
+
+JetBrains Mono
+Font version: 2.211 (the version embedded in assets/fonts/jetbrains-mono.woff2)
+Original distribution: @fontsource-variable/jetbrains-mono 5.3.0, Latin variable font
+License: SIL Open Font License 1.1
+Copyright and full license: assets/licenses/JetBrainsMono-OFL.txt
+Font SHA-256: 18be452724bfdc236c074ca94a249a7f41a86752c7d04ab258ce9ed5651f6a7e
+
+Icons
+Some inline SVG shapes are adapted from Lucide and Feather-derived icons.
+Licenses: ISC and MIT. Full notices: assets/licenses/Lucide-LICENSE.txt
+Source: https://lucide.dev/license
+
+Formatting libraries and their bundled dependencies
+Exact versions, licenses, and notice file locations: vendor/manifest.json
+
+Prettier 3.9.10: MIT.
+Prettier embeds other libraries under MIT, ISC, BSD-2-Clause, BSD-3-Clause,
+Apache-2.0, and BlueOak-1.0.0. Its complete upstream notice file is included:
+  vendor/licenses/prettier-LICENSE
+  vendor/licenses/prettier-THIRD-PARTY-NOTICES.md
+The standalone module and selected parser modules are copied unmodified.
+The notice file covers the full published Prettier package and may also list
+components not included in the selected browser modules.
+
+@prettier/plugin-xml 3.4.2: MIT.
+@xml-tools/parser 1.0.12 and chevrotain 7.1.1: Apache-2.0.
+regexp-to-ast 0.5.0: MIT.
+These modules are bundled and minified for browser use in vendor/xml.mjs.
+
+sql-formatter 15.9.0 and nearley 2.20.1: MIT.
+These modules are bundled and minified for browser use in vendor/sql.mjs.
+
+The generated bundles are transformed distributions; upstream source files
+have not otherwise been edited. Original copyrights, licenses, AUTHORS,
+NOTICE and THIRD-PARTY-NOTICES files supplied by the shipped packages are
+retained in vendor/licenses/. The application-specific XML parser validation
+is implemented separately in lib/format.js.
+
+Development-only tools, including Playwright and esbuild, are not shipped as
+site runtime code. Their licenses remain in the installed npm packages.
